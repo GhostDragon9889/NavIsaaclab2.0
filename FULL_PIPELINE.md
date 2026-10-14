@@ -40,24 +40,25 @@ in this Git repository:
 - trained robot PPO and reward-model checkpoints
 
 Place each artifact at its configured path or update the relevant YAML setting.
-
-The ProtoMotions runtime source and bundled robot assets used by this pipeline
-are available directly in [the repository's `protomotions/` directory](https://github.com/yh83305/NavIsaaclab2.0/tree/main/protomotions).
-It is an official Git submodule, so initialize it after cloning:
+The required sources and setup steps are:
 
 ```bash
+# Fetch the official ProtoMotions source and its Git-LFS checkpoint files.
 git submodule update --init --recursive protomotions
+git lfs install
+git -C protomotions lfs pull
 ```
 
-| Artifact | Download or preparation method |
+| Artifact | Exact source | Where to put it / configuration change |
 | --- | --- |
-| MaskedMimic checkpoint | Obtain the checkpoint matching this repository's [ProtoMotions runtime](https://github.com/yh83305/NavIsaaclab2.0/tree/main/protomotions) from the [upstream pre-trained-model documentation](https://nvlabs.github.io/ProtoMotions/getting_started/pretrained_models.html). Keep its resolved-config companion files beside `last.ckpt`. |
-| SMPL motion library | Prepare the AMASS motion library using the [upstream AMASS preparation guide](https://nvlabs.github.io/ProtoMotions/getting_started/amass_preparation.html), then set `motion_file` to the generated local file. AMASS access is subject to its own license. |
-| USD scenes | Download each scene from its original distribution and set `scene_usd` in `CrowdSim/config/scenes/*.yaml` to its local path. DynBench USD assets are not bundled in this repository. |
-| Robot PPO/reward checkpoints | Train them with this pipeline or obtain the exact experiment artifact from its owner. |
+| MaskedMimic checkpoint | The official `NVLabs/ProtoMotions` submodule, at [`protomotions/data/pretrained_models/masked_mimic/smpl/`](https://github.com/NVlabs/ProtoMotions/tree/main/data/pretrained_models/masked_mimic/smpl). `git -C protomotions lfs pull` downloads `last.ckpt` and its companion files. | The default in `CrowdSim/config/env.yaml` is `protomotions/data/pretrained_models/masked_mimic/smpl/last.ckpt`. Keep all resolved-config files next to `last.ckpt`. |
+| SMPL motion library | [AMASS](https://amass.is.tue.mpg.de/) (registration and its license are required), prepared with the [ProtoMotions AMASS guide](https://nvlabs.github.io/ProtoMotions/getting_started/amass_preparation.html). | Save the generated MotionLib anywhere locally, then set `humanoid.motion_file` in `CrowdSim/config/env.yaml`; the example expects `../Assets/motion/amass_smpl_validation.pt`. |
+| Default warehouse USD | Isaac Sim's installed/Nucleus environment asset: [`/Isaac/Environments/Simple_Warehouse/warehouse_multiple_shelves.usd`](https://docs.isaacsim.omniverse.nvidia.com/latest/assets/usd_assets_environments.html). | Point `scene_usd` in `CrowdSim/config/scenes/warehouse.yaml` to the local Isaac Sim asset-root copy or its Nucleus URL. This file is not shipped by this repository. |
+| DynBench USD scenes and maps | [Hugging Face: `zgong313/DynBench`](https://huggingface.co/datasets/zgong313/DynBench), as documented by the [official FLUX repository](https://github.com/Zeying-Gong/FLUX). | Download with `huggingface-cli download zgong313/DynBench --repo-type dataset --local-dir /path/to/DynBench`; set the `scene_usd` and `scene_map` entries in `CrowdSim/config/scenes/dynabench_*.yaml` to `/path/to/DynBench/isaacsim_scene/...`. |
+| Robot PPO and reward-model checkpoints | No pretrained artifact is published with this repository. | Train with this pipeline, or obtain the exact checkpoint from its experiment owner, then pass its path to `--resume`, `--base-ppo`, or `--reward-ckpt`. |
 
-Do not use an arbitrary older MaskedMimic checkpoint: checkpoint formats and
-resolved configurations can be incompatible across ProtoMotions revisions.
+Do not use an arbitrary older MaskedMimic checkpoint: its checkpoint format and
+resolved configurations can be incompatible with the pinned ProtoMotions revision.
 
 ## Environment
 
