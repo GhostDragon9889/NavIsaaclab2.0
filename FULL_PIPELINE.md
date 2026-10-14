@@ -7,21 +7,6 @@ The repository provides two complementary training paths:
 2. `CrowdSim/` + `protomotions/`: the original Isaac Lab crowd-navigation
    pipeline with humanoids, robot sensors, maps and differential-drive control.
 
-## ProtoMotions submodule
-
-The official [NVLabs/ProtoMotions](https://github.com/NVlabs/ProtoMotions)
-repository is tracked at `external/ProtoMotions`. Initialize it after cloning:
-
-```bash
-git submodule update --init --recursive
-```
-
-To update the submodule to the latest commit on its configured upstream branch:
-
-```bash
-git submodule update --remote external/ProtoMotions
-```
-
 ## Included dependency closure
 
 ```text
@@ -56,20 +41,15 @@ in this Git repository:
 
 Place each artifact at its configured path or update the relevant YAML setting.
 
+The ProtoMotions runtime source and bundled robot assets used by this pipeline
+are available directly in [the repository's `protomotions/` directory](https://github.com/yh83305/NavIsaaclab2.0/tree/main/protomotions).
+
 | Artifact | Download or preparation method |
 | --- | --- |
-| MaskedMimic checkpoint | Obtain the checkpoint matching the selected ProtoMotions revision from the [upstream pre-trained-model documentation](https://nvlabs.github.io/ProtoMotions/getting_started/pretrained_models.html). Keep its resolved-config companion files beside `last.ckpt`. |
+| MaskedMimic checkpoint | Obtain the checkpoint matching this repository's [ProtoMotions runtime](https://github.com/yh83305/NavIsaaclab2.0/tree/main/protomotions) from the [upstream pre-trained-model documentation](https://nvlabs.github.io/ProtoMotions/getting_started/pretrained_models.html). Keep its resolved-config companion files beside `last.ckpt`. |
 | SMPL motion library | Prepare the AMASS motion library using the [upstream AMASS preparation guide](https://nvlabs.github.io/ProtoMotions/getting_started/amass_preparation.html), then set `motion_file` to the generated local file. AMASS access is subject to its own license. |
 | USD scenes | Download each scene from its original distribution and set `scene_usd` in `CrowdSim/config/scenes/*.yaml` to its local path. DynBench USD assets are not bundled in this repository. |
 | Robot PPO/reward checkpoints | Train them with this pipeline or obtain the exact experiment artifact from its owner. |
-
-If the selected upstream revision has Git LFS pointers, install
-[Git LFS](https://git-lfs.com/) and retrieve the objects with:
-
-```bash
-git -C external/ProtoMotions lfs install
-git -C external/ProtoMotions lfs pull
-```
 
 Do not use an arbitrary older MaskedMimic checkpoint: checkpoint formats and
 resolved configurations can be incompatible across ProtoMotions revisions.

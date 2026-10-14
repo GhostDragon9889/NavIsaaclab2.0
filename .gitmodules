@@ -1,4 +1,0 @@
-[submodule "external/ProtoMotions"]
-	path = external/ProtoMotions
-	url = https://github.com/NVlabs/ProtoMotions.git
-	branch = main
