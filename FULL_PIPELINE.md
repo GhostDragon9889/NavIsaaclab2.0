@@ -33,8 +33,8 @@ utilities are included under `CrowdSim/tests/` and `CrowdSim/tools/`.
 The following large or separately distributed files are intentionally not stored
 in this Git repository:
 
-- MaskedMimic checkpoint, normally
-  `data/pretrained_models/masked_mimic/smpl/last.ckpt`
+- MaskedMimic checkpoint at
+  `protomotions/data/pretrained_models/masked_mimic/smpl/last.ckpt`
 - motion file referenced by `CrowdSim/config/env.yaml`
 - warehouse or other scene USD referenced by `CrowdSim/config/scenes/*.yaml`
 - trained robot PPO and reward-model checkpoints
