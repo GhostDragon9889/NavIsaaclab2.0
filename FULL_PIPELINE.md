@@ -43,6 +43,11 @@ Place each artifact at its configured path or update the relevant YAML setting.
 
 The ProtoMotions runtime source and bundled robot assets used by this pipeline
 are available directly in [the repository's `protomotions/` directory](https://github.com/yh83305/NavIsaaclab2.0/tree/main/protomotions).
+It is an official Git submodule, so initialize it after cloning:
+
+```bash
+git submodule update --init --recursive protomotions
+```
 
 | Artifact | Download or preparation method |
 | --- | --- |

@@ -1,0 +1,4 @@
+[submodule "protomotions"]
+	path = protomotions
+	url = https://github.com/NVlabs/ProtoMotions.git
+	branch = main
