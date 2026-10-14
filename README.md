@@ -10,6 +10,19 @@ NavIsaacLab 2.0 provides a training and evaluation stack for human-aware robot n
 - [Paper](https://arxiv.org/abs/2606.26265)
 - **Accepted by IEEE Transactions on Automation Science and Engineering (T-ASE).**
 
+## Setup
+
+The official [NVLabs/ProtoMotions](https://github.com/NVlabs/ProtoMotions)
+repository is included at `external/ProtoMotions` as a Git submodule. Clone with
+`--recurse-submodules`, or initialize it in an existing clone:
+
+```bash
+git submodule update --init --recursive
+```
+
+See [FULL_PIPELINE.md](FULL_PIPELINE.md) for external checkpoint, motion-library,
+and scene-asset download instructions.
+
 ## Demo
 
 #### Diverse pedestrian motion generation
